@@ -9,7 +9,6 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Focusy - Aprendizado para TDAH",
   description: "Plataforma de aprendizado gamificada para pessoas com TDAH",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
