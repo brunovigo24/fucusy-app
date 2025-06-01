@@ -8,16 +8,27 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { motion } from "framer-motion"
 import { User, Shirt, Palette } from "lucide-react"
 import BottomNavigation from "./bottom-navigation"
+import Image from "next/image"
 
 export default function AvatarCreator() {
   const router = useRouter()
   const [selectedHair, setSelectedHair] = useState(0)
   const [selectedClothes, setSelectedClothes] = useState(0)
   const [selectedColor, setSelectedColor] = useState(0)
+  const [selectedAvatar, setSelectedAvatar] = useState(0)
 
   const hairStyles = ["Curto", "Médio", "Longo", "Cacheado", "Careca", "Moicano"]
   const clothesStyles = ["Camiseta", "Camisa", "Moletom", "Vestido", "Terno"]
   const colorOptions = ["bg-yellow-300", "bg-orange-300", "bg-red-300", "bg-purple-300", "bg-blue-300", "bg-green-300"]
+  const avatarImages = [
+    "/images/avatar-masc-1.jpg",
+    "/images/avatar-masc-2.jpg",
+    "/images/avatar-masc-3.jpg",
+    "/images/avatar-masc-4.jpg", 
+    "/images/avatar-fem-1.jpg",
+    "/images/avatar-fem-2.jpg",
+    "/images/avatar-fem-3.jpg"
+  ]
 
   const handleSaveAvatar = () => {
     // Aqui você salvaria os dados do avatar
@@ -39,17 +50,21 @@ export default function AvatarCreator() {
               transition={{ duration: 0.5 }}
               className="relative w-40 h-40 bg-gray-100 rounded-full overflow-hidden border-4 border-purple-300 flex items-center justify-center"
             >
-              <div
-                className={`w-32 h-32 rounded-full flex items-center justify-center text-white text-4xl ${
-                  colorOptions[selectedColor]
-                }`}
-              >
-                <User size={64} />
-              </div>
+              <Image
+                src={avatarImages[selectedAvatar]}
+                alt="Avatar"
+                width={128}
+                height={128}
+                className="rounded-full"
+              />
             </motion.div>
 
-            <Tabs defaultValue="hair" className="w-full">
-              <TabsList className="grid grid-cols-3 mb-4">
+            <Tabs defaultValue="avatar" className="w-full">
+              <TabsList className="grid grid-cols-4 mb-4">
+                <TabsTrigger value="avatar" className="flex items-center gap-1">
+                  <User size={16} />
+                  <span>Avatar</span>
+                </TabsTrigger>
                 <TabsTrigger value="hair" className="flex items-center gap-1">
                   <User size={16} />
                   <span>Cabelo</span>
@@ -63,6 +78,26 @@ export default function AvatarCreator() {
                   <span>Cor</span>
                 </TabsTrigger>
               </TabsList>
+
+              <TabsContent value="avatar" className="space-y-4">
+                <div className="grid grid-cols-3 gap-2">
+                  {avatarImages.map((avatar, index) => (
+                    <button
+                      key={index}
+                      className={`w-full h-12 rounded-md overflow-hidden ${selectedAvatar === index ? "ring-2 ring-offset-2 ring-purple-500" : ""}`}
+                      onClick={() => setSelectedAvatar(index)}
+                    >
+                      <Image
+                        src={avatar}
+                        alt={`Avatar ${index + 1}`}
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </TabsContent>
 
               <TabsContent value="hair" className="space-y-4">
                 <div className="grid grid-cols-3 gap-2">
@@ -99,9 +134,7 @@ export default function AvatarCreator() {
                   {colorOptions.map((color, index) => (
                     <button
                       key={index}
-                      className={`w-full h-12 rounded-md ${color} ${
-                        selectedColor === index ? "ring-2 ring-offset-2 ring-purple-500" : ""
-                      }`}
+                      className={`w-full h-12 rounded-md ${color} ${selectedColor === index ? "ring-2 ring-offset-2 ring-purple-500" : ""}`}
                       onClick={() => setSelectedColor(index)}
                     />
                   ))}
