@@ -36,6 +36,15 @@ export default function AvatarCreator() {
 
   return (
     <>
+      <div className="flex items-center justify-center gap-4 mb-4">
+        <Button className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg>
+          Discord
+        </Button>
+        <p className="text-sm text-gray-600">Conecte-se com pessoas do seu nível de <br />estudo para trocar ideias e experiências!</p>
+      </div>
       <Card className="w-full max-w-md mx-auto shadow-lg border-0">
         <CardHeader className="text-center bg-gradient-to-r from-purple-300 to-orange-200 rounded-t-lg">
           <CardTitle className="text-2xl font-bold text-purple-800">Crie seu Avatar</CardTitle>

@@ -86,7 +86,31 @@ export default function LibraryScreen() {
     },
   ]
 
-  const unlockItem = (item: any, type: "book" | "avatar") => {
+  const coupons = [
+    {
+      id: 1,
+      title: "Cupom de Desconto 10%",
+      description: "Desconto de 10% em qualquer livro",
+      price: 15,
+      unlocked: false,
+    },
+    {
+      id: 2,
+      title: "Cupom de Desconto 20%",
+      description: "Desconto de 20% em qualquer item de avatar",
+      price: 25,
+      unlocked: false,
+    },
+    {
+      id: 3,
+      title: "Cupom de Desconto 30%",
+      description: "Desconto de 30% em qualquer compra",
+      price: 40,
+      unlocked: false,
+    },
+  ]
+
+  const unlockItem = (item: any, type: "book" | "avatar" | "coupon") => {
     if (diamonds >= item.price) {
       setDiamonds(diamonds - item.price)
       // Aqui você atualizaria o estado do item para desbloqueado
@@ -107,7 +131,7 @@ export default function LibraryScreen() {
       </div>
 
       <Tabs defaultValue="books" className="w-full">
-        <TabsList className="grid grid-cols-2 mb-4">
+        <TabsList className="grid grid-cols-3 mb-4">
           <TabsTrigger value="books" className="flex items-center gap-1">
             <BookOpen size={16} />
             <span>Livros</span>
@@ -115,6 +139,10 @@ export default function LibraryScreen() {
           <TabsTrigger value="avatar" className="flex items-center gap-1">
             <Diamond size={16} />
             <span>Itens de Avatar</span>
+          </TabsTrigger>
+          <TabsTrigger value="coupons" className="flex items-center gap-1">
+            <Diamond size={16} />
+            <span>Cupons</span>
           </TabsTrigger>
         </TabsList>
 
@@ -207,6 +235,43 @@ export default function LibraryScreen() {
                         >
                           <Diamond size={16} className="mr-1" />
                           {item.price}
+                        </Button>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="coupons">
+          <div className="space-y-4">
+            {coupons.map((coupon) => (
+              <motion.div
+                key={coupon.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Card className={`border-0 shadow-md ${!coupon.unlocked ? "opacity-80" : ""}`}>
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <h3 className="font-bold text-purple-800">{coupon.title}</h3>
+                        <p className="text-sm text-gray-600 mt-1">{coupon.description}</p>
+                      </div>
+                      {coupon.unlocked ? (
+                        <Button size="sm" className="bg-green-500 hover:bg-green-600 text-white">
+                          Usar Cupom
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          onClick={() => unlockItem(coupon, "coupon")}
+                          className="bg-orange-400 hover:bg-orange-500 text-white"
+                        >
+                          Resgatar
                         </Button>
                       )}
                     </div>
