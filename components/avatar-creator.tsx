@@ -24,7 +24,6 @@ export default function AvatarCreator() {
     "/images/avatar-masc-1.jpg",
     "/images/avatar-masc-2.jpg",
     "/images/avatar-masc-3.jpg",
-    "/images/avatar-masc-4.jpg", 
     "/images/avatar-fem-1.jpg",
     "/images/avatar-fem-2.jpg",
     "/images/avatar-fem-3.jpg"

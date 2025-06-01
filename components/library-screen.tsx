@@ -12,6 +12,13 @@ export default function LibraryScreen() {
 
   const books = [
     {
+      id: 0,
+      title: "História da Psicologia",
+      description: "Conteúdo sobre a evolução da psicologia",
+      price: 0,
+      unlocked: true,
+    },
+    {
       id: 1,
       title: "Guia de Estudo - Matemática",
       description: "Fórmulas e exercícios de matemática básica",
@@ -128,10 +135,32 @@ export default function LibraryScreen() {
                         <p className="text-sm text-gray-600 mt-1">{book.description}</p>
                       </div>
                       {book.unlocked ? (
-                        <Button size="sm" className="bg-green-500 hover:bg-green-600 text-white">
-                          <Download size={16} className="mr-1" />
-                          Baixar
-                        </Button>
+                        <div className="flex gap-2">
+                          {book.id === 0 ? (
+                            <>
+                              <Button 
+                                size="sm" 
+                                className="bg-blue-500 hover:bg-blue-600 text-white"
+                                onClick={() => window.open('/pdf/historia-da-psicologia.pdf', '_blank')}
+                              >
+                                <Download size={16} className="mr-1" />
+                                Baixar PDF
+                              </Button>
+                              <Button 
+                                size="sm" 
+                                className="bg-red-500 hover:bg-red-600 text-white"
+                                onClick={() => window.open('https://youtu.be/mVtT6QBDMxc?si=T28iEUFZZVd7fmex', '_blank')}
+                              >
+                                Assistir Vídeo
+                              </Button>
+                            </>
+                          ) : (
+                            <Button size="sm" className="bg-green-500 hover:bg-green-600 text-white">
+                              <Download size={16} className="mr-1" />
+                              Baixar
+                            </Button>
+                          )}
+                        </div>
                       ) : (
                         <Button
                           size="sm"
